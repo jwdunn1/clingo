@@ -14,6 +14,7 @@
 	</head>
 
 	<body>
+  <div id="wrap">
 		<textarea id="code" spellcheck="false">
 % Default
 #const n = 6.
@@ -26,7 +27,8 @@
 :- queen(R1,C1), queen(R2,C2), R1<R2, |R1-R2|=|C1-C2|.
 </textarea><br><br>
 		<button id="run" disabled>Run ></button><br><br>
-		<div id="output"></div>
+		<div id="output"><p>Enter clingo code above and press Run. Answer sets will appear here.</p></div>
+  </div>
 	</body>
 
 </html>
