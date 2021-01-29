@@ -4,12 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<title>Browser Clingo!</title>
-    <!-- Forked from https://github.com/meldckn/asp-in-the-browser -->
-
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-		<script type="text/javascript" src="clingo.js"></script>
-		<script type="text/javascript" src="clingon.js"></script>
-		<script type="text/javascript" src="main.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 
@@ -27,8 +22,10 @@
 :- queen(R1,C1), queen(R2,C2), R1<R2, |R1-R2|=|C1-C2|.
 </textarea><br><br>
 		<button id="run" disabled>Run ></button><br><br>
-		<div id="output"><p>Enter clingo code above and press Run. Answer sets will appear here.</p></div>
+		<div id="out"><p>Enter clingo code above and press Run. Answer sets will appear here.</p></div>
   </div>
+		<script type="text/javascript" src="main.js"></script>
+		<script type="text/javascript" src="clingo.js"></script>
 	</body>
 
 </html>

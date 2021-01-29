@@ -1,44 +1,79 @@
 /*
- * An example main program that calls and uses clingon functions
+ * Interfacing with clingo.js
+ * Engineer: jWilliam Dunn
+ * Based on code by potassco.org
+ * January 2021
  *
- * Uses jQuery
  */
 
-/* Callback function to pass to loadASP that gets called when it has finished
- */
 function useASP () {
-
   // Enable "run" button
   $("#run").attr("disabled", false);
 
   $("#run").click( function() {
-    $("#output").empty();
-    $("#output").append('<p>Solving...</p>');
-    clingon.groundAndSolve (code.value, useResults);
+    $("#out").empty();
+    //$("#out").append('<p>Solving...</p>');
+    main.launchSolver(code.value, useResults);
   });
-
 }
 
-
-/* Callback function to pass to groundAndSolve that gets called when it has finished,
- * recieving the solutions as a parameter
- */
 function useResults (results) {
-   console.log(results);
-   $("#output").append('<p>'+results.Result+'<br>'+
+   $("#out").empty();
+   $("#out").append(results);
+   /*$("#output").append('<p>'+results.Result+'<br>'+
      'Models: '+results.Models.Number+'<br>'+
      'Time: '+results.Time.Total+'s</p>');
    for(let i=0; i<results.Models.Number; i++){
      $("#output").append('<p>Answer: '+(i+1)+'<br>'+results.Witnesses[i].Value+'</p>');
-   }
+   }*/
 }
 
 
 /* Wait for jQuery to load before starting */
 $(document).ready(function() {
-
-  // Load the ASP code from graph.lp and call useASP function when it's done
-  //clingon.loadASP ("graph.lp", useASP);
   useASP(code.value);
-
 });
+
+
+var output = "";
+Module = {
+  preRun: [],
+  postRun: [],
+  print: (function() {
+    return function(text) {
+      if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+      output += text + "<br>";
+      useResults(output);
+    };
+  })(),
+  printErr: function(text) {
+    if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+    if (text == "Calling stub instead of signal()") { return; }
+    var prefix = "pre-main prep time: ";
+    if (typeof text=="string" && prefix == text.slice(0, prefix.length)) { text = "Ready to go!" }
+    output += text + "<br>";
+    useResults(output);
+  },
+  setStatus: function(text) {
+    if (text == "") { run.disabled = false; }
+    else {
+      output += text + "<br>";
+      useResults(output);
+    }
+  },
+  totalDependencies: 0,
+  monitorRunDependencies: function(left) {
+    this.totalDependencies = Math.max(this.totalDependencies, left);
+    Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+  }
+};
+
+var main = (function () {
+    function launchSolver(code, callback) {
+        output = "";
+        Module.ccall('run', 'number', ['string', 'string'], [code, " --opt-mode=optN 0"]);
+    };
+    return {
+        launchSolver : launchSolver
+    }
+})();
