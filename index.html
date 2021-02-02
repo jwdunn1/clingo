@@ -19,7 +19,7 @@
 
 % Constraints
 :- queen(R1,C), queen(R2,C), R1!=R2.
-:- queen(R1,C1), queen(R2,C2), R1<R2, |R1-R2|=|C1-C2|.
+:- queen(R1,C1), queen(R2,C2), R1!=R2, |R1-R2|=|C1-C2|.
 </textarea><br><br>
 		<button id="run" disabled>Run ></button><br><br>
 		<div id="out"><p>Enter clingo code above and press Run. Answer sets will appear here.</p></div>
