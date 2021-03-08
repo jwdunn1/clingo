@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
 html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'IBM Plex Mono', monospace;
 }
 #wrap {
   width: calc(100vw - (30px));
@@ -15,12 +17,13 @@ p {
   width: 100%;
   word-wrap: break-word;
   font-family: monospace;
-	background-color: #fefefe;
-	color: #010101;
+  background-color: #fefefe;
+  color: #010101;
 }
 textarea {
-	height: 20em;
-	width: calc(100% - 6px);
-	background-color: #fefefe;
-	color: #010101;
+  height: 20em;
+  width: calc(100% - 6px);
+  background-color: #fefefe;
+  color: #010101;
+  font-family: 'IBM Plex Mono', monospace;
 }
