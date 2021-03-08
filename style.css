@@ -16,7 +16,6 @@ p {
 #out {
   width: 100%;
   word-wrap: break-word;
-  font-family: monospace;
   background-color: #fefefe;
   color: #010101;
 }
